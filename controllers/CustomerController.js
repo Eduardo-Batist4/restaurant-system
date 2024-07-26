@@ -1,4 +1,5 @@
 const Customer = require('../models/Customer');
+const Table = require('../models/Table');
 
 module.exports = {
     async createCustomer(req, res) {
@@ -51,7 +52,12 @@ module.exports = {
                 return res.status(400).json({ error: "The customer doesn't exist!" });
             }
 
-            const customer = await Customer.findByPk(req.params.id);
+            const customer = await Customer.findByPk(id, {
+                include: [{
+                    model: Table,
+                    attributes: { exclude: ['id', 'clientId', 'createdAt', 'updatedAt']}
+                }]
+            });
             return res.status(200).json(customer);
         } catch (error) {
             console.log(error);
