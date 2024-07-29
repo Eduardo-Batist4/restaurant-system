@@ -1,7 +1,7 @@
 const Menu = require('../models/Menu');
 
 module.exports = {
-    async createMenus(req, res) {
+    async createMenu(req, res) {
         try {
             const { name, description, price, available } = req.body;
 
