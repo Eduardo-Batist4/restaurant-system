@@ -6,6 +6,7 @@ const CustomerController = require('../controllers/CustomerController');
 const TableController = require('../controllers/TableController');
 const MenuController = require('../controllers/MenuController');
 const OrderController = require('../controllers/OrderController');
+const EmployeeController = require('../controllers/EmployeeController');
 
 // Customers
 router.post('/customers', CustomerController.createCustomer);
@@ -33,5 +34,12 @@ router.get('/orders', OrderController.getOrders);
 router.get('/order/:id', OrderController.getOrder);
 router.patch('/order/:id', OrderController.updateOrder);
 router.delete('/order/:id', OrderController.deleteOrder);
+
+// Employees
+router.post('/employees', EmployeeController.createEmployee);
+router.get('/employees', EmployeeController.getEmployees);
+router.get('/employee/:id', EmployeeController.getEmployee);
+router.delete('/employee/:id', EmployeeController.deleteEmployee);
+
 
 module.exports = router; 
