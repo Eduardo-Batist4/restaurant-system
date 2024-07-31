@@ -13,7 +13,7 @@ async function hashPassword(password) {
 
 async function verifyPassword(password, hash) {
     try {
-        const match = await bcrypt.compare(password, hash);
+        const match = await bcrypt.compareSync(password, hash);
         return match;
     } catch (error) {
         console.log('Password verification error.');
