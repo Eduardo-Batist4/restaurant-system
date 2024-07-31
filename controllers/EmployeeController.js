@@ -1,4 +1,4 @@
-const Employees = require('../models/Employee');
+const Employee = require('../models/Employee');
 const { hashPassword } = require('../utils/bcrypt');
 
 module.exports = {
@@ -17,20 +17,20 @@ module.exports = {
             }
 
             // check if the name exists
-            const nameExists = await Employees.findOne({ where: { name: name } });
+            const nameExists = await Employee.findOne({ where: { name: name } });
             if(nameExists) {
                 return res.status(400).json({error: 'This name already exists!'});
             }
 
             // check if the email exists
-            const emailExists = await Employees.findOne({ where: { email: email } });
+            const emailExists = await Employee.findOne({ where: { email: email } });
             if(emailExists) {
                 return res.status(400).json({error: 'This email already exists!'});
             }
 
             const hashedPassword = await hashPassword(password);
 
-            const employees = await Employees.create({ name, email, password: hashedPassword, position });
+            const employees = await Employee.create({ name, email, password: hashedPassword, position });
             return res.status(201).json(employees);
         } catch (error) {
             console.log(error);
@@ -40,7 +40,7 @@ module.exports = {
 
     async getEmployees(req, res) {
         try {
-            const employees = await Employees.findAll({ attributes: { exclude: ['email', 'password', 'createdAt', 'updatedAt']}});
+            const employees = await Employee.findAll({ attributes: { exclude: ['email', 'password', 'createdAt', 'updatedAt']}});
             return res.status(200).json(employees);
         } catch (error) {
             console.error("Error fetching the employees.");
@@ -49,7 +49,7 @@ module.exports = {
     },
     async getEmployee(req, res) {
         try {
-            const employee = await Employees.findOne({
+            const employee = await Employee.findOne({
                 where: { id: req.params.id },
                 attributes: { exclude: ['password'] } 
             });
@@ -68,12 +68,12 @@ module.exports = {
         try {
             const id = req.params.id;
             
-            const employeeExist = await Employees.findByPk(id);
+            const employeeExist = await Employee.findByPk(id);
             if(!employeeExist) {
                 return res.status(400).json({ error: "Employee doesn't exist!" });
             }
 
-            await Employees.destroy({ where: { id: req.params.id } });
+            await Employee.destroy({ where: { id: req.params.id } });
             return res.status(200).json('Success!');
         } catch (error) {
             console.log(error);
