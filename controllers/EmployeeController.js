@@ -16,6 +16,12 @@ module.exports = {
                 return res.status(400).json({error: ' Wrong password!'})
             }
 
+            // check if the name exists
+            const nameExists = await Employees.findOne({ where: { name: name } });
+            if(nameExists) {
+                return res.status(400).json({error: 'This name already exists!'});
+            }
+
             // check if the email exists
             const emailExists = await Employees.findOne({ where: { email: email } });
             if(emailExists) {
