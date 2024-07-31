@@ -128,6 +128,11 @@ module.exports = {
                 return res.status(400).json({ error: 'ID is required!' });
             }
 
+            const tableExist = await Table.findByPk(id);
+            if(!tableExist) {
+                return res.status(400).json({ error: "Table doesn't exist!" });
+            }
+
             await Table.destroy({ where: { id: id } });
             return res.status(200).json('Success!');
         } catch (error) {
