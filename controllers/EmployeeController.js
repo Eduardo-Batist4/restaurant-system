@@ -66,6 +66,13 @@ module.exports = {
 
     async deleteEmployee(req, res) {
         try {
+            const id = req.params.id;
+            
+            const employeeExist = await Employees.findByPk(id);
+            if(!employeeExist) {
+                return res.status(400).json({ error: "Employee doesn't exist!" });
+            }
+
             await Employees.destroy({ where: { id: req.params.id } });
             return res.status(200).json('Success!');
         } catch (error) {
