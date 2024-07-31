@@ -1,7 +1,7 @@
 const Employee = require('../models/Employee');
 const { verifyPassword } = require('../utils/bcrypt');
 const jwt = require('jsonwebtoken');
-const blacklist = require('../utils/blackList.js');
+const blacklist = require('../utils/blacklist.js');
 require('dotenv').config();
 
 module.exports = {
