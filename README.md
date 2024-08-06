@@ -25,11 +25,11 @@ Este backend simula um sistema de restaurante desenvolvido para otimizar e contr
     $ git clone https://github.com/Eduardo-Batist4/restaurant-system.git
 ```
 ```bash
-    # Instalação das dependências
+    # Instalação das dependencias
     npm install
 ```
 ```bash
-    # Altere as configuração do seu .env (variáveis de ambiente)
+    # Altere as configuração do seu .env (variaveis de ambiente)
 
     DB_HOST=localhost
     DB_USERNAME=seu_Usuario
@@ -45,10 +45,53 @@ Este backend simula um sistema de restaurante desenvolvido para otimizar e contr
     # Rodar a conexão com o Banco de Dados
     npm start
 ```
+## Endpoints
+
+**CUSTOMERS**   
+- POST: /customers
+- GET: /customers
+- GET: /customer/id
+- PATCH: /customer/id
+- DELETE: /customer/id
+
+**TABLES**
+- POST: /tables
+- GET: /tables
+- GET: /table/id
+- PATCH: /table/id
+- DELETE: /table/id
+
+**MENU**
+- POST: /menus (Protegida)
+- GET: /menus
+- PATCH: /menu/id (Protegida)
+- DELETE: /menu/id (Protegida)
+
+**ORDERS**
+- POST: /orders (Protegida)
+- GET: /orders (Protegida)
+- GET: /order/id (Protegida)
+- PATCH: /order/id (Protegida)
+- DELETE: /order/id (Protegida)
+
+**EMPLOYEES**
+- POST: /employees
+- GET: /employees   (Protegida)
+- GET: /employee/id (Protegida)
+- DELETE: /employee/id  (Protegida)
+
+**LOGIN E LOGOUT**
+- POST: /login (Conta do funcionário)
+- POST: /logout
+
+
+
 
 ## Tecnologias Utilizada
 
-<img align="center" alt="Js" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img align="center" alt="Js" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"> 
+<img align="center" alt="Js" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img align="center" alt="Js" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white">
 <img align="center" alt="Js" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white"> <img align="center" alt="Js" src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
 <img align="center" alt="Js" src="https://img.shields.io/badge/sequelize-323330?style=for-the-badge&logo=sequelize&logoColor=blue"> <img align="center" alt="Js" src="https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink">
+
+
 
