@@ -1,1 +1,54 @@
-# Restaurant Sistem
+
+# Restaurant System
+
+Este backend simula um sistema de restaurante desenvolvido para otimizar e controlar eficientemente todas as operações do estabelecimento. O sistema oferece funcionalidades completas para o cadastro e gestão de clientes, pedidos, mesas, cardápio de comidas e funcionários, proporcionando uma gestão integrada e eficiente.
+## Funcionalidades do Sistema 
+- **Autenticação Segura:** Implementa autenticação de usuários para garantir que apenas pessoas autorizadas tenham acesso.
+- **Rotas Protegidas:** Acesso controlado às rotas, garantindo a segurança e integridade dos dados.
+- **Segurança dos Dados dos Funcionários:** Proteção avançada para informações sensíveis dos funcionários.
+- **Operações CRUD Completas:** Funções de criar, ler, atualizar e deletar (CRUD) para clientes, mesas, cardápio de comidas, pedidos e funcionários.
+- **Arquitetura MVC:** Organização do código utilizando o padrão de arquitetura Model-View-Controller (MVC) para melhor manutenção e escalabilidade.
+- **Gerenciamento de Tokens Inválidos:** Armazenamento e controle de tokens inválidos para garantir segurança nas sessões de usuários. **(Para armazenar os tokens ja ultilizado, preferi armazenar em uma array porque é um projeto pessoal e de aprendizado, mas poderia usar uma tabela no banco)**
+
+## Instalação
+
+
+**Para rodar o projeto você vai precisar ter:**
+
+- Node instalado
+- pgAdmin 4 (postgreSQL)
+- Postman instalado
+
+
+```bash
+    # Clone o Projeto
+    $ git clone https://github.com/Eduardo-Batist4/restaurant-system.git
+```
+```bash
+    # Instalação das dependências
+    npm install
+```
+```bash
+    # Altere as configuração do seu .env (variáveis de ambiente)
+
+    DB_HOST=localhost
+    DB_USERNAME=seu_Usuario
+    DB_PASSWORD=sua_Senha
+    DB_DATABASE_DEVELOPMENT=nome_Do_Banco
+    SECRET=seuSecret
+    PORT=sua_Porta
+```
+```bash
+    # Para criar as tabelas use o comando do sequelize
+    npx sequelize-cli db:migrate
+
+    # Rodar a conexão com o Banco de Dados
+    npm start
+```
+
+## Tecnologias Utilizada
+
+<img align="center" alt="Js" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img align="center" alt="Js" src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"> 
+<img align="center" alt="Js" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white"> <img align="center" alt="Js" src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
+<img align="center" alt="Js" src="https://img.shields.io/badge/sequelize-323330?style=for-the-badge&logo=sequelize&logoColor=blue"> <img align="center" alt="Js" src="https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink">
+
