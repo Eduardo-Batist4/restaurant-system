@@ -36,6 +36,7 @@ module.exports = {
             res.status(500).json({ error: 'Internal Server Error'});
         };
     },
+    
     async getCustomer(req, res) {
         try {
             const id = req.params.id;
