@@ -1,5 +1,4 @@
-const Customer = require('../models/Customer');
-const Table = require('../models/Table');
+const { Customer, Table } = require('../models/Association');
 
 module.exports = {
     async createCustomer(req, res) {

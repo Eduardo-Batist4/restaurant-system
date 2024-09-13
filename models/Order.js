@@ -35,11 +35,4 @@ const Order = sequelize.define('orders', {
     }
 });
 
-Menu.hasMany(Order, { foreignKey: 'menuId' });
-Order.belongsTo(Menu, { foreignKey: 'menuId' });
-
-Table.hasMany(Order, { foreignKey: 'tableId' });
-Order.belongsTo(Table, { foreignKey: 'tableId' });
-
-
 module.exports = Order;

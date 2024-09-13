@@ -1,7 +1,4 @@
-const Customer = require('../models/Customer');
-const Menu = require('../models/Menu');
-const Order = require('../models/Order');
-const Table = require('../models/Table');
+const {Table, Order, Menu, Customer} = require('../models/Association')
 
 module.exports = {
     async createOrder(req, res) {

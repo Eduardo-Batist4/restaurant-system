@@ -1,4 +1,4 @@
-const Menu = require('../models/Menu');
+const { Menu } = require('../models/Association');
 
 module.exports = {
     async createMenu(req, res) {

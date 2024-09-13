@@ -20,7 +20,4 @@ const Table = sequelize.define('tables', {
     }
 });
 
-Customer.hasOne(Table, { foreignKey: 'clientId' });
-Table.belongsTo(Customer, { foreignKey: 'clientId' });
-
 module.exports = Table;
