@@ -1,9 +1,9 @@
-const { createCustomer } = require('../../controllers/CustomerController');
-const { Customer } = require('../../models/Association');
+const { createCustomer } = require('../../../controllers/CustomerController');
+const { Customer } = require('../../../models/Association');
 
 jest.mock('../../models/Association');
 
-describe('Test Customer', () => {
+describe('Create Customer', () => {
     let req, res;
 
     beforeEach(() => {
