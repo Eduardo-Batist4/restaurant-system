@@ -1,7 +1,7 @@
 const { createCustomer } = require('../../../controllers/CustomerController');
 const { Customer } = require('../../../models/Association');
 
-jest.mock('../../models/Association');
+jest.mock('../../../models/Association');
 
 describe('Create Customer', () => {
     let req, res;
