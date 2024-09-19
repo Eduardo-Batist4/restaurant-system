@@ -18,6 +18,21 @@ describe('Create Customer', () => {
         jest.clearAllMocks();
     });
 
+    it('Should return (200) if the Customer is created successfully!', async () => {
+        req.body = { name: 'Robin ropz', email: 'ropz@teste.com' };
+
+        Customer.findOne   
+            .mockResolvedValueOnce(false)
+            .mockResolvedValueOnce(false)
+        
+        Customer.create.mockResolvedValueOnce({ id: 1, name: 'Robin ropz', email: 'ropz@teste.com' });
+
+        await createCustomer(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(201);
+        expect(res.json).toHaveBeenCalledWith({ id: 1, name: 'Robin ropz', email: 'ropz@teste.com' });
+    });
+
     it('Should return (400) if the Content is Empty!', async () => {
         req.body = {};
 
@@ -52,20 +67,15 @@ describe('Create Customer', () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({ error: 'E-mail already exists!' });
     });
-
-    it('Should return (200) if the Customer is created successfully!', async () => {
+    
+    it('Should handle internal server errors', async () => {
         req.body = { name: 'Robin ropz', email: 'ropz@teste.com' };
 
-        Customer.findOne   
-            .mockResolvedValueOnce(false)
-            .mockResolvedValueOnce(false)
-        
-        Customer.create.mockResolvedValueOnce({ id: 1, name: 'Robin ropz', email: 'ropz@teste.com' });
+        Customer.create.mockRejectedValue(new Error('Database Error'));
 
         await createCustomer(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith({ id: 1, name: 'Robin ropz', email: 'ropz@teste.com' });
-    });
-    
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.' });
+    })
 });
