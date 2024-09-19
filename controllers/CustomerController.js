@@ -23,7 +23,7 @@ module.exports = {
             return res.status(201).json(customer);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         };
     },
 
@@ -33,7 +33,7 @@ module.exports = {
             return res.status(200).json(customers);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         };
     },
     
@@ -61,7 +61,7 @@ module.exports = {
             return res.status(200).json(customer);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         };
     },
 
@@ -83,14 +83,14 @@ module.exports = {
             // check if the customer exists
             const customerExist = await Customer.findOne({ where: { id: id } });
             if(!customerExist) {
-                return res.status(400).json({ error: "The customer doesn't exist!" });
+                return res.status(404).json({ error: "The customer doesn't exist!" });
             }
 
             await Customer.update({ name, email }, { where: { id: id } });
             return res.status(200).json({ message: 'Success!'});
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            return res.status(500).json({ error: 'Internal Server Error.' });
         }
     },
 
@@ -113,7 +113,7 @@ module.exports = {
             return res.status(200).json({ message: 'Success!' });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     }
 };
