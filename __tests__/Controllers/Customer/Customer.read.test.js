@@ -36,7 +36,7 @@ describe('GET Customers', () => {
         await getCustomers(req, res);
 
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error'});
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.'});
 
     })
 });
@@ -52,7 +52,7 @@ describe('GET Customer by ID', () => {
         };
     });
 
-    it('Should return a customer by ID', async () => {
+    it('Should return (200) if a customer is found by ID', async () => {
         const mockCustomer = {
             id: '1',
             name: 'Kaike Kscerato',
@@ -81,7 +81,7 @@ describe('GET Customer by ID', () => {
         expect(res.json).toHaveBeenCalledWith(mockCustomer);
     });
 
-    it('Should return error if ID is not provied', async () => {
+    it('Should return (400) if ID is not provied', async () => {
         req.params.id = undefined;
 
         await getCustomer(req, res);
@@ -90,7 +90,7 @@ describe('GET Customer by ID', () => {
         expect(res.json).toHaveBeenCalledWith({ error: 'ID is required!' });
     });
 
-    it('Should return error if customer does not exist', async () => {
+    it('Should return (400) if customer does not exist', async () => {
         Customer.findOne.mockResolvedValue(null);
 
         await getCustomer(req, res);
@@ -106,6 +106,6 @@ describe('GET Customer by ID', () => {
         await getCustomer(req, res);
 
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error' });
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.' });
     })
 });
