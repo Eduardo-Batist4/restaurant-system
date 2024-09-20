@@ -91,7 +91,7 @@ describe('GET Customer by ID', () => {
     });
 
     it('Should return (400) if customer does not exist', async () => {
-        Customer.findOne.mockResolvedValue(null);
+        Customer.findOne = jest.fn().mockResolvedValue(null);
 
         await getCustomer(req, res);
 

@@ -69,5 +69,5 @@ describe('Update Customer', () => {
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.'});
-    })
+    });
 });
