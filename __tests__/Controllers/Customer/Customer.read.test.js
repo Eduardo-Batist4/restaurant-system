@@ -1,5 +1,5 @@
 const { getCustomer, getCustomers } =  require('../../../controllers/CustomerController');
-const { Customer } = require('../../../models/Association');
+const { Customer, Table } = require('../../../models/Association');
 
 jest.mock('../../../models/Association')
 
@@ -36,9 +36,9 @@ describe('GET Customers', () => {
         await getCustomers(req, res);
 
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error'});
 
-    })
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.'});
+    });
 });
 
 describe('GET Customer by ID', () => {
@@ -52,7 +52,7 @@ describe('GET Customer by ID', () => {
         };
     });
 
-    it('Should return a customer by ID', async () => {
+    it('Should return (200) if a customer is found by ID', async () => {
         const mockCustomer = {
             id: '1',
             name: 'Kaike Kscerato',
@@ -65,13 +65,49 @@ describe('GET Customer by ID', () => {
             ]
         };
 
-        Customer.findOne = jest.fn().mockResolvedValue(mockCustomer);
-        Customer.findByPk = jest.fn().mockResolvedValue(mockCustomer);
+        Customer.findOne.mockResolvedValueOnce(mockCustomer); 
+        Customer.findByPk.mockResolvedValueOnce(mockCustomer); 
 
         await getCustomer(req, res);
+
+        expect(Customer.findOne).toHaveBeenCalledWith({ where: { id: '1' } });
+        expect(Customer.findByPk).toHaveBeenCalledWith('1', {
+            include: [{
+                model: Table,
+                attributes: { exclude: ['id', 'clientId', 'createdAt', 'updatedAt'] }
+            }]
+        });
 
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith(mockCustomer);
     });
+
+    it('Should return (400) if ID is not provied', async () => {
+        req.params.id = undefined;
+
+        await getCustomer(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({ error: 'ID is required!' });
+    });
+
+    it('Should return (400) if customer does not exist', async () => {
+        Customer.findOne = jest.fn().mockResolvedValue(null);
+
+        await getCustomer(req, res);
+
+        expect(Customer.findOne).toHaveBeenCalledWith({ where: { id: '1' } });
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({ error: "The customer doesn't exist!" });
+    });
+
+    it('Should handle server erros', async () => {
+        Customer.findOne.mockRejectedValue(new Error('Database error'));
+
+        await getCustomer(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.' });
+    })
 
 });
