@@ -7,16 +7,16 @@ module.exports = {
 
             // check that the name and e-mail have been provided
             if(!name && !email) {
-                return res.status(400).json({ error: 'Name and E-mail is required!' });
+                return res.status(400).json({ error: 'All fields are required!' });
             };
 
             // check if the e-mail is already exists
             const searchName = await Customer.findOne({ where: { name: name } });
             const searchEmail = await Customer.findOne({ where: { email: email } });
             if(searchName) {
-                return res.status(400).json({ error: 'Name already exists!' });
+                return res.status(409).json({ error: 'Name already exists!' });
             } else if (searchEmail) {
-                return res.status(400).json({ error: 'E-mail already exists!' });
+                return res.status(409).json({ error: 'E-mail already exists!' });
             }
 
             const customer = await Customer.create({ name, email });
@@ -49,7 +49,7 @@ module.exports = {
             // check if the customer exists
             const customerExist = await Customer.findOne({ where: { id: id } });
             if(!customerExist) {
-                return res.status(400).json({ error: "The customer doesn't exist!" });
+                return res.status(404).json({ error: "The customer doesn't exist!" });
             }
 
             const customer = await Customer.findByPk(id, {
@@ -77,7 +77,7 @@ module.exports = {
             
             // check that the Name and E-mail have been provided
             if(!name && !email) {
-                return res.status(400).json({ error: 'Name or E-mail is required!' });
+                return res.status(400).json({ error: 'All fields are required!' });
             }
 
             // check if the customer exists
@@ -106,7 +106,7 @@ module.exports = {
             // check if the customer exists
             const customerExist = await Customer.findOne({ where: { id: id } });
             if(!customerExist) {
-                return res.status(400).json({ error: "The customer doesn't exist!" });
+                return res.status(404).json({ error: "The customer doesn't exist!" });
             }
 
             await Customer.destroy({ where: { id: id } });
