@@ -14,20 +14,20 @@ module.exports = {
             // check if the table number exists
             const tableExist = await Table.findOne({ where: { number: number } });
             if(tableExist) {
-                return res.status(400).json({ error: 'The table number already exits!'});
+                return res.status(409).json({ error: 'The table number already exits!'});
             }
 
             if(clientId !== undefined && clientId !== null) {
                 // check if the customer exists
                 const searchClient = await Customer.findOne({ where: { id: clientId } });
                 if(!searchClient) {
-                    return res.status(400).json({ error: "The customer doesn't exist!" });
+                    return res.status(404).json({ error: "Not Found!" });
                 }
 
                 // check if the customer already has a table
                 const customerHasATable = await Table.findOne({ where: { clientId: clientId } });
                 if(customerHasATable) {
-                    return res.status(400).json({ error: 'The customer already a table!'});
+                    return res.status(409).json({ error: 'The customer already a table!'});
                 }
             };
 
@@ -35,7 +35,7 @@ module.exports = {
             return res.status(201).json(table);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
 
@@ -51,7 +51,7 @@ module.exports = {
             return res.status(200).json(tables);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
     async getTable(req, res) {
@@ -66,7 +66,7 @@ module.exports = {
             // check if the customer exists
             const tableExist = await Customer.findOne({ where: { id: id } });
             if(!tableExist) {
-                return res.status(400).json({ error: "The table doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             }
 
             const tables = await Table.findByPk(id, {
@@ -78,7 +78,7 @@ module.exports = {
             return res.status(200).json(tables);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
 
@@ -94,20 +94,20 @@ module.exports = {
 
             // check that the Number and clientId have been provided
             if(!number && !clientId) {
-                return res.status(400).json({ error: 'Number or clientId is required!' });
+                return res.status(400).json({ error: 'All fields are required!' });
             }
             
             // check if the table exists
             const tableExist = await Table.findOne({ where: { id: id } });
             if(!tableExist) {
-                return res.status(400).json({ error: "The table doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             }
 
             if(clientId !== undefined && clientId !== null) {
                 // check if the customer exists
                 const searchClient = await Customer.findOne({ where: { id: clientId } });
                 if(!searchClient) {
-                    return res.status(400).json({ error: "The customer doesn't exist!" });
+                    return res.status(404).json({ error: "The customer doesn't exist!" });
                 }
             };
 
@@ -115,7 +115,7 @@ module.exports = {
             return res.status(200).json({ message: 'Success!' });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
     
@@ -130,14 +130,14 @@ module.exports = {
 
             const tableExist = await Table.findByPk(id);
             if(!tableExist) {
-                return res.status(400).json({ error: "Table doesn't exist!" });
+                return res.status(404).json({ error: "Table doesn't exist!" });
             }
 
             await Table.destroy({ where: { id: id } });
             return res.status(200).json('Success!');
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     }
 };
