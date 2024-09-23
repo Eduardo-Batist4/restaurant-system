@@ -12,21 +12,21 @@ module.exports = {
             // Check if the email exist
             const employee = await Employee.findOne({ where: { email: email } });
             if(!employee) {
-                return res.status(401).json({ error: "Employee not found!"})
+                return res.status(404).json({ error: "Employee not found!"})
             }
 
             // Verifying password
             const validPassword = await verifyPassword(password, employee.password);
             if(!validPassword) {
-                return res.status(401).json({ error: "wrong email or password!"})
+                return res.status(401).json({ error: "Wrong Email or Password!"})
             }
 
             const token = jwt.sign({ id: employee.id, name: employee.name }, process.env.SECRET);
 
             return res.status(200).json({ message: 'Login successful', token });
         } catch (error) {
-            console.error("Login error.");
-            return res.status(500).json({error: "Interval server error."});
+            console.error(error);
+            return res.status(500).json({error: "Interval Server Error."});
         }
     },
 
@@ -64,7 +64,7 @@ module.exports = {
             next();
         } catch (error) {
             console.error(error);
-            return res.status(500).json({ error: "Not authorized." });
+            return res.status(500).json({ error: "Internal Server Error." });
         }
     }
 };
