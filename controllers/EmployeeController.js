@@ -8,24 +8,24 @@ module.exports = {
 
             // check if the content exists 
             if(!name && !email && !password && !confirmPassword && !position) {
-                return res.status(204).json({error: 'Empty content.'});
+                return res.status(400).json({ error: 'All fields are required!' });
             }
 
             // check if the password is equal to confirmPassword
             if(password !== confirmPassword) {
-                return res.status(400).json({error: ' Wrong password!'})
+                return res.status(400).json({error: 'Wrong password!'})
             }
 
             // check if the name exists
             const nameExists = await Employee.findOne({ where: { name: name } });
             if(nameExists) {
-                return res.status(400).json({error: 'This name already exists!'});
+                return res.status(409).json({error: 'This name already exists!'});
             }
 
             // check if the email exists
             const emailExists = await Employee.findOne({ where: { email: email } });
             if(emailExists) {
-                return res.status(400).json({error: 'This email already exists!'});
+                return res.status(409).json({error: 'This email already exists!'});
             }
 
             const hashedPassword = await hashPassword(password);
@@ -34,7 +34,7 @@ module.exports = {
             return res.status(201).json(employees);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
 
@@ -44,9 +44,10 @@ module.exports = {
             return res.status(200).json(employees);
         } catch (error) {
             console.error("Error fetching the employees.");
-            return res.status(500).json({error: "Interval server error."});
+            return res.status(500).json({error: "Interval Server Error."});
         }
     },
+
     async getEmployee(req, res) {
         try {
             const employee = await Employee.findOne({
@@ -54,13 +55,13 @@ module.exports = {
                 attributes: { exclude: ['password'] } 
             });
             if(!employee) {
-                return res.status(400).json({ error: "Not found!" });
+                return res.status(404).json({ error: "Not found!" });
             }
 
             return res.status(200).json(employee);
         } catch (error) {
             console.error("Error fetching the employee.");
-            return res.status(500).json({ error: "Interval server error." });
+            return res.status(500).json({ error: "Interval Server Error." });
         }
     },
 
@@ -70,14 +71,14 @@ module.exports = {
             
             const employeeExist = await Employee.findByPk(id);
             if(!employeeExist) {
-                return res.status(400).json({ error: "Employee doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             }
 
             await Employee.destroy({ where: { id: req.params.id } });
             return res.status(200).json('Success!');
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});   
+            res.status(500).json({ error: 'Internal Server Error.'});   
         }
     }
 }
