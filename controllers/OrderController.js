@@ -7,20 +7,20 @@ module.exports = {
 
             // check that the menuId, tableId, status and total have been provided
             if(!menuId && !tableId && !status) {
-                return res.status(400).json({ error: 'Content is required!' });
+                return res.status(400).json({ error: 'All fields are required!' });
             };
 
             // check if the menu and table exists
             const searchMenu = await Menu.findOne({ where: { id: menuId } });
             const searchTable = await Table.findOne({ where: { id: tableId } });
             if(!searchMenu) {
-                return res.status(400).json({ error: "Food doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             } else if (!searchTable) {
-                return res.status(400).json({ error: "Table doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             }
 
             if(!searchMenu.available) {
-                return res.status(400).json({ error: "Food is not available!" });
+                return res.status(404).json({ error: "Food is not available!" });
             }
 
             const total = searchMenu.price
@@ -29,7 +29,7 @@ module.exports = {
             return res.status(201).json(order);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         };
     },
 
@@ -55,7 +55,7 @@ module.exports = {
             return res.status(200).json(orders);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         };
     },
     async getOrder(req, res) {
@@ -70,7 +70,7 @@ module.exports = {
             // check if the order exists
             const orderExists = await Order.findOne({ where: { id: id } });
             if(!orderExists) {
-                return res.status(400).json({ error: "The order doesn't exist!" });
+                return res.status(404).json({ error: "The order doesn't exist!" });
             }
 
             const order = await Order.findByPk(id, {
@@ -92,7 +92,7 @@ module.exports = {
             return res.status(200).json(order);
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         };
     },
 
@@ -108,16 +108,16 @@ module.exports = {
 
             // check that the menuId, tableId, status and total have been provided
             if(!menuId && !tableId && !status) {
-                return res.status(400).json({ error: 'Content is required!' });
+                return res.status(400).json({ error: 'All fields are required!' });
             };
 
             // check if the menu and table exists
             const searchMenu = await Menu.findOne({ where: { id: menuId } });
             const searchTable = await Table.findOne({ where: { id: tableId } });
             if(!searchMenu) {
-                return res.status(400).json({ error: "Food doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             } else if (!searchTable) {
-                return res.status(400).json({ error: "Table doesn't exist!" });
+                return res.status(404).json({ error: "Not Found!" });
             }
             
 
@@ -127,7 +127,7 @@ module.exports = {
             return res.status(201).json({ message: 'Success!' });
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});
+            res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
 
@@ -144,7 +144,7 @@ module.exports = {
             return res.status(200).json('Success!');
         } catch (error) {
             console.log(error);
-            res.status(500).json({ error: 'Internal Server Error'});   
+            res.status(500).json({ error: 'Internal Server Error.'});   
         }
     }
 };
