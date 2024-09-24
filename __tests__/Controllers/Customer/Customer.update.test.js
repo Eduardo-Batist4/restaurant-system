@@ -40,13 +40,13 @@ describe('Update Customer', () => {
         expect(res.json).toHaveBeenCalledWith({ error: 'ID is required!' });
     });
 
-    it('Should return (400) if Name and email are not provided', async () => {
+    it('Should return (400) if all Field are Empty', async () => {
         req.body = {};
 
         await updateCustomer(req, res);
 
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Name or E-mail is required!' });
+        expect(res.json).toHaveBeenCalledWith({ error: 'All fields are required!' });
     });
 
     it('Should return (404) if the customer already exists', async () => {

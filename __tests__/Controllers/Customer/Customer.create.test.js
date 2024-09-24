@@ -33,16 +33,16 @@ describe('Create Customer', () => {
         expect(res.json).toHaveBeenCalledWith({ id: 1, name: 'Robin ropz', email: 'ropz@teste.com' });
     });
 
-    it('Should return (400) if the Content is Empty!', async () => {
+    it('Should return (400) if  all Fields are Empty!', async () => {
         req.body = {};
 
         await createCustomer(req, res);
 
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({ error: 'Name and E-mail is required!' });
+        expect(res.json).toHaveBeenCalledWith({ error: 'All fields are required!' });
     });
 
-    it('Should return (400) if the Name already exists!', async () => {
+    it('Should return (409) if the Name already exists!', async () => {
         req.body = { name: 'Oleksandr s1mple', email: 's1mple@teste.com' };
 
         Customer.findOne
@@ -51,11 +51,11 @@ describe('Create Customer', () => {
 
         await createCustomer(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(409);
         expect(res.json).toHaveBeenCalledWith({ error: 'Name already exists!' });
     });
 
-    it('Should return (400) if the Email already exists!', async () => {
+    it('Should return (409) if the Email already exists!', async () => {
         req.body = { name: 'Ilya m0NESY', email: 'm0NESY@teste.com' };
 
         Customer.findOne
@@ -64,7 +64,7 @@ describe('Create Customer', () => {
 
         await createCustomer(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(409);
         expect(res.json).toHaveBeenCalledWith({ error: 'E-mail already exists!' });
     });
     

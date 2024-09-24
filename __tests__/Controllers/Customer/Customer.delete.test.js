@@ -30,11 +30,11 @@ describe('Delete Customer', () => {
     });
 
     it("Should return (400) if the customer doesn't exist", async () => {
-        Customer.findOne = jest.fn().mockResolvedValue(null); // Não sei o por que não consigo usar somente o Customer.findOne.mock... sendo que ja esta mockado
+        Customer.findOne = jest.fn().mockResolvedValue(false); // Não sei o por que não consigo usar somente o Customer.findOne.mock... sendo que ja esta mockado
 
         await deleteCustomer(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({ error: "The customer doesn't exist!" });
     });
 });

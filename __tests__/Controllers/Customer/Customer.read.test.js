@@ -92,12 +92,12 @@ describe('GET Customer by ID', () => {
     });
 
     it('Should return (400) if customer does not exist', async () => {
-        Customer.findOne = jest.fn().mockResolvedValue(null);
+        Customer.findOne = jest.fn().mockResolvedValue(false);
 
         await getCustomer(req, res);
 
         expect(Customer.findOne).toHaveBeenCalledWith({ where: { id: '1' } });
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({ error: "The customer doesn't exist!" });
     });
 
