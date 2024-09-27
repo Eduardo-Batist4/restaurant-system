@@ -44,7 +44,7 @@ module.exports = {
             return res.status(200).json(employees);
         } catch (error) {
             console.error("Error fetching the employees.");
-            return res.status(500).json({error: "Interval Server Error."});
+            return res.status(500).json({error: "Internal Server Error."});
         }
     },
 
@@ -61,7 +61,7 @@ module.exports = {
             return res.status(200).json(employee);
         } catch (error) {
             console.error("Error fetching the employee.");
-            return res.status(500).json({ error: "Interval Server Error." });
+            return res.status(500).json({ error: "Internal Server Error." });
         }
     },
 
