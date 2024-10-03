@@ -18,7 +18,7 @@ describe('Create Customer', () => {
         jest.clearAllMocks();
     });
 
-    it('Should return (200) if the Customer is created successfully!', async () => {
+    it('Should return (201) if the Customer is created successfully!', async () => {
         req.body = { name: 'Robin ropz', email: 'ropz@teste.com' };
 
         Customer.findOne   

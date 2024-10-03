@@ -10,10 +10,9 @@ module.exports = {
                 return res.status(400).json({ error: 'All fields are required!' });
             }
 
-            // check if the table number exists
             const menuExist = await Menu.findOne({ where: { name: name } });
             if(menuExist) {
-                return res.status(409).json({ error: 'The food already exits!'});
+                return res.status(409).json({ error: 'The food already exists!'});
             }
 
             const menu = await Menu.create({ name, description, price, available: available || false });
