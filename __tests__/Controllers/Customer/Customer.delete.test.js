@@ -1,5 +1,5 @@
 const { deleteCustomer } = require('../../../controllers/CustomerController');
-const Customer = require('../../../models/Association');
+const { Customer } = require('../../../models/Association');
 
 jest.mock('../../../models/Association');
 
@@ -17,8 +17,16 @@ describe('Delete Customer', () => {
         
     });
 
-    // Não consegui fazer o Teste case para Usuario Deletado.
-    // Não consegui fazer o Teste Case para o Erro de Servidor.
+    it('Should return (200) if the Customer is deleted', async () => {
+        Customer.findOne.mockResolvedValue(true);
+        Customer.destroy.mockResolvedValue(true);
+
+        await deleteCustomer(req, res);
+
+        expect(Customer.destroy).toHaveBeenCalledWith({ where: { id: '1' } });
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({ message: 'Success!' });
+    });
 
     it('Should return (400) if ID not provied', async () => {
         req.params.id = undefined;
@@ -30,11 +38,21 @@ describe('Delete Customer', () => {
     });
 
     it("Should return (400) if the customer doesn't exist", async () => {
-        Customer.findOne = jest.fn().mockResolvedValue(false); // Não sei o por que não consigo usar somente o Customer.findOne.mock... sendo que ja esta mockado
+        Customer.findOne.mockResolvedValue(false);
 
         await deleteCustomer(req, res);
 
         expect(res.status).toHaveBeenCalledWith(404);
         expect(res.json).toHaveBeenCalledWith({ error: "The customer doesn't exist!" });
+    });
+
+    it('Should handle internal server errors', async () => {
+        Customer.findOne.mockResolvedValueOnce(true);
+        Customer.destroy.mockRejectedValueOnce(new Error('Database Error'));
+
+        await deleteCustomer(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.' });
     });
 });
