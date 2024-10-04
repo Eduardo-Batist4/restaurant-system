@@ -72,7 +72,7 @@ module.exports = {
             }
 
             await Menu.destroy({ where: { id: id } });
-            return res.status(200).json('Success!');
+            return res.status(200).json({ message: 'Success!' });
         } catch (error) {
             console.log(error);
             res.status(500).json({ error: 'Internal Server Error.'});   
