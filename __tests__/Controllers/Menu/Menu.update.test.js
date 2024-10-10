@@ -3,7 +3,7 @@ const { Menu } = require('../../../models/Association');
 
 jest.mock('../../../models/Association');
 
-describe('Create Menu', () => {
+describe('Update Menu', () => {
     let req, res;
 
     beforeEach(() => {

@@ -3,7 +3,7 @@ const { Menu } = require('../../../models/Association');
 
 jest.mock('../../../models/Association');
 
-describe('Create Menu', () => {
+describe('GET Menu items', () => {
     let req, res;
 
     beforeEach(() => {
@@ -42,7 +42,7 @@ describe('Create Menu', () => {
         expect(res.json).toHaveBeenCalledWith(menuItems);
     });
 
-    it('Handle internal server erros', async () => {
+    it('Should handle internal server erros', async () => {
         Menu.findAll.mockRejectedValue(new Error('Database Error'));
 
         await getMenus(req, res);
