@@ -91,7 +91,7 @@ describe('GET Orders', () => {
     });
 });
 
-describe('GET Orders', () => {
+describe('GET Order', () => {
     let req, res;
 
     beforeEach(() => {
