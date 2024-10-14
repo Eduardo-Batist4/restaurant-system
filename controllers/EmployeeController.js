@@ -69,6 +69,11 @@ module.exports = {
         try {
             const id = req.params.id;
             
+            // check that the ID has been provided
+            if(!id) {
+                return res.status(400).json({ error: 'ID is required!' });
+            }
+
             const employeeExist = await Employee.findByPk(id);
             if(!employeeExist) {
                 return res.status(404).json({ error: "Not Found!" });
