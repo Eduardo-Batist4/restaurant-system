@@ -1,5 +1,5 @@
 const { updateOrder } = require('../../../controllers/OrderController');
-const { Menu, Order, Table, Customer } = require('../../../models/Association');
+const { Menu, Order, Table } = require('../../../models/Association');
 
 jest.mock('../../../models/Association');
 

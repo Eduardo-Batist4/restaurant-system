@@ -33,6 +33,15 @@ describe('Delete Employee', () => {
         expect(res.json).toHaveBeenCalledWith('Success!');
     });
 
+    it('Should return (400) if ID is not provied', async () => {
+        req.params = {};
+
+        await deleteEmployee(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({ error: 'ID is required!' });
+    });
+
     it('Should return (404) if the Employee is not found', async () => {
         Employee.findByPk.mockResolvedValue(false);
 

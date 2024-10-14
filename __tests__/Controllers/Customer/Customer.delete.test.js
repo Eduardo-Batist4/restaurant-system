@@ -28,7 +28,7 @@ describe('Delete Customer', () => {
         expect(res.json).toHaveBeenCalledWith({ message: 'Success!' });
     });
 
-    it('Should return (400) if ID not provied', async () => {
+    it('Should return (400) if ID is not provied', async () => {
         req.params.id = undefined;
 
         await deleteCustomer(req, res);
