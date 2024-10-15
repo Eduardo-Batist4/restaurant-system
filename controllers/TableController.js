@@ -1,5 +1,4 @@
-const Customer = require('../models/Customer');
-const Table = require('../models/Table');
+const { Table, Customer } = require('../models/Association');
 
 module.exports = {
     async createTable(req, res) {
@@ -7,29 +6,26 @@ module.exports = {
             const { number, clientId } = req.body;
 
             // check if the number has been provided
-            if(!number) {
-                return res.status(400).json({ error: 'Number is required!' });
+            if(!number && !clientId) {
+                return res.status(400).json({ error: 'All fields are required!' });
             }
 
             // check if the table number exists
             const tableExist = await Table.findOne({ where: { number: number } });
             if(tableExist) {
-                return res.status(409).json({ error: 'The table number already exits!'});
+                return res.status(409).json({ error: 'The table number already exists!'});
             }
 
-            if(clientId !== undefined && clientId !== null) {
-                // check if the customer exists
-                const searchClient = await Customer.findOne({ where: { id: clientId } });
-                if(!searchClient) {
-                    return res.status(404).json({ error: "Not Found!" });
-                }
-
-                // check if the customer already has a table
-                const customerHasATable = await Table.findOne({ where: { clientId: clientId } });
-                if(customerHasATable) {
-                    return res.status(409).json({ error: 'The customer already a table!'});
-                }
-            };
+            // check if the customer exists
+            const searchClient = await Customer.findOne({ where: { id: clientId } });
+            if(!searchClient) {
+                return res.status(404).json({ error: "Not Found!" });
+            }
+            // check if the customer already has a table
+            const customerHasATable = await Table.findOne({ where: { clientId: clientId } });
+            if(customerHasATable) {
+                return res.status(409).json({ error: 'The customer already a table!'});
+            }
 
             const table = await Table.create({ number, clientId: clientId || null });
             return res.status(201).json(table);
@@ -54,6 +50,7 @@ module.exports = {
             res.status(500).json({ error: 'Internal Server Error.'});
         }
     },
+
     async getTable(req, res) {
         try {
             const id = req.params.id;
