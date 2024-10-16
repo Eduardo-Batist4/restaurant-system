@@ -100,13 +100,11 @@ module.exports = {
                 return res.status(404).json({ error: "Not Found!" });
             }
 
-            if(clientId !== undefined && clientId !== null) {
-                // check if the customer exists
-                const searchClient = await Customer.findOne({ where: { id: clientId } });
-                if(!searchClient) {
-                    return res.status(404).json({ error: "The customer doesn't exist!" });
-                }
-            };
+            // check if the customer exists
+            const searchClient = await Customer.findOne({ where: { id: clientId } });
+            if(!searchClient) {
+                return res.status(404).json({ error: "The customer doesn't exist!" });
+            }
 
             await Table.update({ number, clientId }, { where: { id: id } });
             return res.status(200).json({ message: 'Success!' });
@@ -131,7 +129,7 @@ module.exports = {
             }
 
             await Table.destroy({ where: { id: id } });
-            return res.status(200).json('Success!');
+            return res.status(200).json({ message: 'Success!' });
         } catch (error) {
             console.log(error);
             res.status(500).json({ error: 'Internal Server Error.'});
