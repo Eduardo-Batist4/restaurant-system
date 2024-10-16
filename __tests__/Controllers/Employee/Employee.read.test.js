@@ -1,4 +1,4 @@
-const { getEmployee, getEmployees } = require('../../../controllers/EmployeeController');
+const { getEmployees, getEmployee } = require('../../../controllers/EmployeeController');
 const Employee = require('../../../models/Employee');
 
 jest.mock('../../../models/Employee');

@@ -29,7 +29,7 @@ describe('GET Customers', () => {
         expect(res.json).toHaveBeenCalledWith(mockCustomers);
     });
 
-    it('Should handle errors!', async () => {
+    it('Should handle internal server errors!', async () => {
         const errorMessage =  'Database error!';
         Customer.findAll.mockRejectedValue(new Error(errorMessage));
 
@@ -108,6 +108,5 @@ describe('GET Customer by ID', () => {
 
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({ error: 'Internal Server Error.' });
-    })
-
+    });
 });

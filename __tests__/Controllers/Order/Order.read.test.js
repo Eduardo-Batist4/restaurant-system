@@ -1,4 +1,4 @@
-const { getOrder, getOrders } = require('../../../controllers/OrderController');
+const { getOrders, getOrder } = require('../../../controllers/OrderController');
 const { Menu, Order, Table, Customer } = require('../../../models/Association');
 
 jest.mock('../../../models/Association');
