@@ -25,7 +25,7 @@ module.exports = {
 
             return res.status(200).json({ message: 'Login successful', token });
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return res.status(500).json({error: "Interval Server Error."});
         }
     },
@@ -63,7 +63,7 @@ module.exports = {
             req.user = decoded;
             next();
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return res.status(500).json({ error: "Internal Server Error." });
         }
     }

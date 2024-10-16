@@ -43,7 +43,7 @@ module.exports = {
             const employees = await Employee.findAll({ attributes: { exclude: ['email', 'password', 'createdAt', 'updatedAt']}});
             return res.status(200).json(employees);
         } catch (error) {
-            console.error("Error fetching the employees.");
+            console.log(error);
             return res.status(500).json({error: "Internal Server Error."});
         }
     },
@@ -60,7 +60,7 @@ module.exports = {
 
             return res.status(200).json(employee);
         } catch (error) {
-            console.error("Error fetching the employee.");
+            console.log(error);
             return res.status(500).json({ error: "Internal Server Error." });
         }
     },
