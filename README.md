@@ -13,12 +13,9 @@ Este backend simula um sistema de restaurante desenvolvido para otimizar e contr
 ## Instalação
 
 
-**Para rodar o projeto você vai precisar ter:**
+**Para rodar os teste:**
 
 - Node instalado
-- pgAdmin 4 (postgreSQL)
-- Postman instalado
-
 
 ```bash
     # Clone o Projeto
@@ -29,21 +26,12 @@ Este backend simula um sistema de restaurante desenvolvido para otimizar e contr
     npm install
 ```
 ```bash
-    # Altere as configuração do seu .env (variaveis de ambiente)
-
-    DB_HOST=localhost
-    DB_USERNAME=seu_Usuario
-    DB_PASSWORD=sua_Senha
-    DB_DATABASE_DEVELOPMENT=nome_Do_Banco
-    SECRET=seuSecret
-    PORT=sua_Porta
+    # Rodar todos os Teste
+    npm run test
 ```
 ```bash
-    # Para criar as tabelas use o comando do sequelize
-    npx sequelize-cli db:migrate
-
-    # Rodar a conexão com o Banco de Dados
-    npm start
+    # Para rodar um teste especifico 
+    npm run test -- path/caminho/do/arquivo
 ```
 ## Endpoints
 
