@@ -18,7 +18,7 @@ describe('Create Menu', () => {
         jest.clearAllMocks();
     });
 
-    it('Should return 201 if the menu item is created successfully', async () => {
+    it('Should return (201) if the Menu item is created successfully', async () => {
         req.body = {
             name: 'Pizza',
             description: 'Tomato, Cheese',
@@ -74,8 +74,7 @@ describe('Create Menu', () => {
             available: true
         };
 
-        Menu.findOne.mockResolvedValue(false);
-        Menu.create.mockRejectedValue(new Error('Database Error'));
+        Menu.findOne.mockRejectedValue(new Error('Database Error'));
 
         await createMenu(req, res);
 

@@ -47,8 +47,7 @@ describe('Delete Customer', () => {
     });
 
     it('Should handle internal server errors', async () => {
-        Customer.findOne.mockResolvedValueOnce(true);
-        Customer.destroy.mockRejectedValueOnce(new Error('Database Error'));
+        Customer.findOne.mockRejectedValue(new Error('Database Error'));
 
         await deleteCustomer(req, res);
 

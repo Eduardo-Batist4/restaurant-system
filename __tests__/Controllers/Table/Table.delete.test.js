@@ -21,7 +21,7 @@ describe('GET Tables', () => {
         jest.clearAllMocks()
     });
 
-    it('Should return (200) if Table is deleted', async () => {
+    it('Should return (200) if the Table is deleted', async () => {
         Table.findByPk.mockResolvedValue(true);
         Table.destroy.mockResolvedValue(true);
 

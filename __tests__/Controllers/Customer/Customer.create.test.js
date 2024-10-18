@@ -18,7 +18,7 @@ describe('Create Customer', () => {
         jest.clearAllMocks();
     });
 
-    it('Should return (201) if the Customer is created successfully!', async () => {
+    it('Should return (201) if the Customer is created successfully', async () => {
         req.body = { name: 'Robin ropz', email: 'ropz@teste.com' };
 
         Customer.findOne   
@@ -33,7 +33,7 @@ describe('Create Customer', () => {
         expect(res.json).toHaveBeenCalledWith({ id: 1, name: 'Robin ropz', email: 'ropz@teste.com' });
     });
 
-    it('Should return (400) if  all Fields are Empty!', async () => {
+    it('Should return (400) if all Fields are Empty!', async () => {
         req.body = {};
 
         await createCustomer(req, res);

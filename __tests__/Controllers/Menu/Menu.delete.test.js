@@ -31,7 +31,7 @@ describe('Delete Menu item', () => {
         expect(res.json).toHaveBeenCalledWith({ message: 'Success!' });
     });
 
-    it('Should return (400) if the ID is not provied', async () => {
+    it('Should return (400) if ID is not provied', async () => {
         req.params = {}
 
         await deleteMenu(req, res);

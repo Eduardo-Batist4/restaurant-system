@@ -53,7 +53,7 @@ describe('Create Order', () => {
         expect(res.json).toHaveBeenCalledWith({ error: 'All fields are required!' });
     });
 
-    it("Should return (404) if the Menu item isn't found", async () => {
+    it("Should return (404) if the Menu item doesn't exist", async () => {
         req.body = {
             menuId: '10',
             tableId: '20',
@@ -69,7 +69,7 @@ describe('Create Order', () => {
         expect(res.json).toHaveBeenCalledWith({ error: 'Not Found!' });
     });
 
-    it("Should return (404) if the Table isn't found", async () => {
+    it("Should return (404) if the Table doesn't exist", async () => {
         req.body = {
             menuId: '30',
             tableId: '40',
@@ -85,7 +85,7 @@ describe('Create Order', () => {
         expect(res.json).toHaveBeenCalledWith({ error: 'Not Found!' });
     });
 
-    it("Should return (404) if the food isn't available", async () => {
+    it("Should return (404) if the food is not available", async () => {
         req.body = {
             menuId: '50',
             tableId: '60',
@@ -108,9 +108,8 @@ describe('Create Order', () => {
             status: 'pending'
         };
 
-        Menu.findOne.mockResolvedValueOnce({ id: '70', available: true, price: 100 });
-        Table.findOne.mockResolvedValueOnce({ id: '2', number: 80 });
-        Order.create.mockRejectedValue(new Error('Database Error'));
+        Menu.findOne.mockRejectedValue(new Error('Database Error'));
+
         await createOrder(req, res);
 
         expect(res.status).toHaveBeenCalledWith(500);

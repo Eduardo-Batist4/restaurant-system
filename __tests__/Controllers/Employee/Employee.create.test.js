@@ -20,7 +20,7 @@ describe('Create Employee', () => {
         jest.clearAllMocks();
     });
 
-    it('Should return (201) if the Employee was created successfully', async () => {
+    it('Should return (201) if the Employee is created successfully', async () => {
         req.body = { name: 'Marcelo Coldzera', email: 'cold@teste.com', password: 'cold123', confirmPassword: 'cold123', position: 'garçom' };
 
         Employee.findOne
@@ -101,9 +101,7 @@ describe('Create Employee', () => {
             position: 'cozinheiro' 
         }
 
-        Employee.findOne.mockResolvedValue(false);
-
-        Employee.create.mockRejectedValue(new Error('Database Error'));
+        Employee.findOne.mockRejectedValue(new Error('Database Error'));
 
         await createEmployee(req, res);
 

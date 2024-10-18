@@ -30,10 +30,17 @@ describe('Update Menu', () => {
         };
 
         Menu.findOne.mockResolvedValueOnce(true);
-        Menu.update.mockResolvedValueOnce([1]);
+        Menu.update.mockResolvedValueOnce(true);
 
         await updateMenu(req, res);
         
+        expect(Menu.findOne).toHaveBeenCalledWith({ where: { id: '1' } });
+        expect(Menu.update).toHaveBeenCalledWith({
+            name: 'Pizza',
+            description: 'Tomato, Cheese',
+            price: 20,
+            available: true
+        }, { where: { id: '1' } });
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({ message: 'Success!' });
     });
@@ -78,8 +85,7 @@ describe('Update Menu', () => {
             available: true
         };
 
-        Menu.findOne.mockResolvedValueOnce(true);
-        Menu.update.mockRejectedValueOnce(new Error('Database Error'));
+        Menu.findOne.mockRejectedValue(new Error('Database Error'));
 
         await updateMenu(req, res);
 
